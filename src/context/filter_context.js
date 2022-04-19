@@ -23,7 +23,7 @@ export const FilterProvider = ({ children }) => {
     </FilterContext.Provider>
   )
 }
-// make sure use
+// make sure use for custom hook
 export const useFilterContext = () => {
   return useContext(FilterContext)
 }
