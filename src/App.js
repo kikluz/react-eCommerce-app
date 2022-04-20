@@ -29,9 +29,6 @@ function App() {
           <Route exact path="/cart" >
             <Cart />
           </Route>
-          <Route path="*" >
-            <Error />
-          </Route>
           <Route exact path="/products" >
             <Products />
           </Route>
@@ -39,6 +36,11 @@ function App() {
           <Route exact path="/checkout" >
             <Checkout />
           </Route>
+          {/* has to be the last  */}
+          <Route path="*" >
+            <Error />
+          </Route>
+
         </Switch>
         <Footer />
       </Router>
