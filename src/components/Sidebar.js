@@ -9,7 +9,32 @@ import CartButtons from './CartButtons'
 import { useUserContext } from '../context/user_context'
 
 const Sidebar = () => {
-  return <h4>sidebar</h4>
+  const isOpen = false;
+  return (
+    <>
+      <SidebarContainer>
+        {/* if it is true then get sidebar and show-sidebar and if its false get show-sidebar  */}
+        <aside className={`${isOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
+          <div className="sidebar-header">
+            <img src={logo} alt="comfy sloth" />
+            <buto className="close-btn" type="button"><FaTimes /></buto>
+          </div>
+          <ul className="links">
+            {links.map((link) => {
+              const { id, text, url } = link
+              return (
+                <li key={id}><Link to={url}>{text}</Link></li>
+              )
+            })}
+            <li>
+              <Link to="/checkout">checkout</Link>
+            </li>
+          </ul>
+          <CartButtons />
+        </aside>
+      </SidebarContainer>
+    </>
+  )
 }
 
 const SidebarContainer = styled.div`
@@ -69,6 +94,7 @@ const SidebarContainer = styled.div`
     transform: translate(-100%);
     z-index: -1;
   }
+  /* this is the class that I wil display (toggle in ) */
   .show-sidebar {
     transform: translate(0);
     z-index: 999;
