@@ -33,6 +33,7 @@ const Nav = () => {
             )
           })}
         </ul>
+        <CartButtons />
       </div>
     </NavContainer>
   )
@@ -99,6 +100,7 @@ const NavContainer = styled.nav`
         }
       }
     }
+    
     .cart-btn-wrapper {
       display: grid;
     }
