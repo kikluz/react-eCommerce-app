@@ -7,7 +7,30 @@ import Loading from './Loading'
 import Product from './Product'
 
 const FeaturedProducts = () => {
-  return <h4>featured products</h4>
+  const { products_loading: loading, products_error: error, featured_products: featured } = useProductsContext();
+  // ? setup if statements, if loadin display loading, if there is error display error component, if product 
+  // ? display products
+  if (loading) {
+    return <Loading />
+  }
+  if (error) {
+    return (<Error />)
+  }
+  return (
+    <Wrapper className='section'>
+      <div className='title'>
+        <h2>feature products</h2>
+        <div className="underline"></div>
+      </div>
+      <div className='section-center featured'>
+        {/* we only get three item from the array since we are using the slice method  */}
+        {featured.slice(0, 3).map((item) => {
+          return <Product key={item.id} {...item} />
+        })}
+      </div>
+
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`

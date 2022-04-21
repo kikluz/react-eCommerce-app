@@ -42,6 +42,7 @@ export const services = [
   },
 ]
 
+// this url is for all the products 
 export const products_url = 'https://course-api.com/react-store-products'
-
+// this is for specific product 
 export const single_product_url = `https://course-api.com/react-store-single-product?id=`
