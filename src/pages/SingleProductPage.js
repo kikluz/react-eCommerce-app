@@ -15,7 +15,78 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 const SingleProductPage = () => {
-  return <h4>single product page</h4>
+  // console.log(useParams())
+  // get the props name id of this object 
+  const { id } = useParams();
+  const history = useHistory();
+  const {
+    single_product_loading: loadin,
+    single_product_error: error,
+    single_product: product,
+    fetchSingleProduct
+  } = useProductsContext();
+
+  // ? when  load page invoke useEffetc and 
+  // ? setup fetchSingleProduct and pass the url from constants + id
+  useEffect(() => {
+    fetchSingleProduct(`${url}${id}`)
+  }, [id]);
+  // in three sencods, if error is true programaticly redirect to home 
+  useEffect(() => {
+    if (error === true) {
+      setTimeout(() => {
+        history.push('/')
+      }, 3000)
+    }
+  }, [error])
+  // check for loading 
+  if (loadin) {
+    return <Loading />
+  }
+  if (error) {
+    return <Error />
+  }
+
+  console.log(product);
+  const { id: sku, name, price, reviews, shipping, stars, stock, description,
+    company, images, } = product
+  return (
+    <Wrapper>
+      {/* passin the product props  */}
+      <PageHero title={name} product />
+      <div className="section section-center page">
+        <Link to="/products" className='btn'>
+          back to products
+        </Link>
+        <div className="product-center">
+          <ProductImages />
+          <section className='content'>
+            <h2>{name}</h2>
+            <Stars />
+            <h5 className='price'>
+              {formatPrice(price)}
+            </h5>
+            <p className='desc'>{description}</p>
+            <p className='info'>
+              <span>Avialabel: </span>
+              {/* check if stock is bigger then 0 display it*/}
+              {stock > 0 ? 'In stock' : 'out of stock'}
+            </p>
+            <p className='info'>
+              <span>SKU: </span>
+              {sku}
+            </p>
+            <p className='info'>
+              <span>Brand: </span>
+              {company}
+            </p>
+            <hr />
+            {stock > 0 && < AddToCart />}
+          </section>
+        </div>
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.main`

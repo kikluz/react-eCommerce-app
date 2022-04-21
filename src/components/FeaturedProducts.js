@@ -23,15 +23,19 @@ const FeaturedProducts = () => {
         <div className="underline"></div>
       </div>
       <div className='section-center featured'>
-        {/* we only get three item from the array since we are using the slice method  */}
-        {featured.slice(0, 3).map((item) => {
-          return <Product key={item.id} {...item} />
+        {/* we only get three product from the array since we are using the slice method  */}
+        {featured.slice(0, 3).map((product) => {
+          return (
+            <Product key={product.id}{...product} />
+          )
         })}
       </div>
-
     </Wrapper>
   )
 }
+
+
+
 
 const Wrapper = styled.section`
   background: var(--clr-grey-10);

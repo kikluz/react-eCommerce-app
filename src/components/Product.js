@@ -16,7 +16,9 @@ const Product = ({ image, name, price, id }) => {
       </div>
       <footer>
         <h5>{name}</h5>
-        <p>${price}</p>
+        {/* simple solution si $1 = 100 cents  <p>${price / 100}</p> */}
+        {/* the other solution is the  international method mormat formatPrice */}
+        <p>{formatPrice(price)}</p>
       </footer>
     </Wrapper>
   )

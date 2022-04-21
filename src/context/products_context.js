@@ -13,7 +13,7 @@ import {
   GET_SINGLE_PRODUCT_SUCCESS,
   GET_SINGLE_PRODUCT_ERROR,
 } from '../actions'
-// ?Here add more porp in the initial state 
+// ?Here add more porp in the initial state values
 const initialState = {
   // hide sidebar by default 
   isSidebarOpen: false,
@@ -21,7 +21,9 @@ const initialState = {
   products_error: false,
   products: [],
   featured_products: [],
-
+  single_product_loading: false,
+  single_product_error: false,
+  single_product: {},
 
 }
 
@@ -53,6 +55,17 @@ export const ProductsProvider = ({ children }) => {
     }
   };
 
+  const fetchSingleProduct = async (url) => {
+    dispatch({ type: GET_SINGLE_PRODUCT_BEGIN });
+    try {
+      const response = await axios.get(url);
+      const singleProduct = response.data;
+      dispatch({ type: GET_SINGLE_PRODUCT_SUCCESS, payload: singleProduct })
+    } catch (error) {
+      dispatch({ type: GET_SINGLE_PRODUCT_ERROR });
+    }
+  }
+
   // useEffect so can fetch once 
   useEffect(() => {
     fetchProducts(url);
@@ -62,7 +75,10 @@ export const ProductsProvider = ({ children }) => {
   return (
     <ProductsContext.Provider
       value={{
-        ...state, openSidebar, closeSidebar
+        ...state,
+        openSidebar,
+        closeSidebar,
+        fetchSingleProduct,
       }}
     >
       {children}
