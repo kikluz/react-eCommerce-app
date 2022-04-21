@@ -17,7 +17,7 @@ export const links = [
     url: '/products',
   },
 ]
-
+// we most import react if using the 
 export const services = [
   {
     id: 1,
