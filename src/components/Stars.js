@@ -4,8 +4,8 @@ import { BsStarFill, BsStarHalf, BsStar } from 'react-icons/bs'
 // ? we need to pass the reviews and the starts
 const Stars = ({ stars, reviews }) => {
   // console.log(stars)
-  // setup a new array  the second argument is the callback function agains every item
-  // dont giv the first parameter so pass (_) so index is the one i use and for everu item
+  // setup a new array 2 arguments  the second argument is the callback function agains every item
+  // dont care for first parameter so pass (_) so index is the one I use and for every item
   // I will return BsStarFill, BsStarHalf, BsStar
   const tempStars = Array.from({ length: 5 }, (_, index) => {
     // index it's between 0-4 

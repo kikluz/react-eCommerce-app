@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Contact } from '.'
 // if images  is undefined so it gooing to be array with empty onject 
 const ProductImages = ({ images = [{ url: '' }] }) => {
-  console.log(images)
+  // console.log(images)
   // get the first image in the array 
   const [main, setMain] = useState(images[0])
   // console.log(main)
