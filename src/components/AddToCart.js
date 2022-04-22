@@ -10,6 +10,32 @@ const AddToCart = ({ product }) => {
   // console.log(colors);
   // state values 
   const [mainColor, setMainColor] = useState(colors[0]);
+  // add item to the cart 
+  const [amount, setAmount] = useState(1)
+  // ? add two function one for decrease and for increase
+  const increase = () => {
+    // invoke setAmount value that controls the state value 
+    setAmount((oldAmount) => {
+      // oldAmount is increase by 1
+      let tempAmount = oldAmount + 1;
+      // if tempAmount is bigger the stock 
+      if (tempAmount > stock) {
+        // give me tempAmount
+        tempAmount = stock
+      }
+      return tempAmount;
+    })
+  }
+  const decrease = () => {
+    setAmount((oldAmount) => {
+      let tempAmount = oldAmount - 1;
+      // check for the value that its less then 1 
+      if (tempAmount < 1) {
+        tempAmount = 1
+      }
+      return tempAmount;
+    })
+  }
 
 
   return (
@@ -36,7 +62,15 @@ const AddToCart = ({ product }) => {
           })}
         </div>
       </div>
-      <div className='btn-container'></div>
+      <div className='btn-container'>
+        {/* here we are passing the amount and the increase and the decrease  */}
+        <AmountButtons
+          amount={amount}
+          increase={increase}
+          decrease={decrease}
+        />
+        <Link to="/cart" className='btn'>add to cart</Link>
+      </div>
     </Wrapper>
   )
 }
