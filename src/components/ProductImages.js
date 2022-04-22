@@ -1,8 +1,31 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-
-const ProductImages = () => {
-  return <h4>product images</h4>
+import { Contact } from '.'
+// if images  is undefined so it gooing to be array with empty onject 
+const ProductImages = ({ images = [{ url: '' }] }) => {
+  console.log(images)
+  // get the first image in the array 
+  const [main, setMain] = useState(images[0])
+  // console.log(main)
+  return (
+    <Wrapper>
+      <img src={main.url} alt="main-image" className='main' />
+      <div className="gallery">
+        {images.map((image, index) => {
+          return (
+            <img
+              src={image.url}
+              alt={image.filename}
+              key={index}
+              // setMain and change the onject images and the index of particular image 
+              onClick={() => setMain(images[index])}
+              className={`${image.url === main.url ? 'active' : null}`}
+            />
+          )
+        })}
+      </div>
+    </Wrapper>
+  )
 }
 
 const Wrapper = styled.section`
