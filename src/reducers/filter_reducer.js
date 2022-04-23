@@ -11,10 +11,10 @@ import {
 
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
-    // if this is the case chnages the state values
-    //  set products that are comming from the payload equal to the both of them 
+    // if this is the case changes the state values
+    //  set products that are comming from the payload equal to both of them 
     // spread and all_products equal to payload and filter_products too
-    return { ...state, all_products: [...action.payload], filter_products: [...action.payload] }
+    return { ...state, all_products: [...action.payload], filtered_products: [...action.payload] }
   }
 
   throw new Error(`No Matching "${action.type}" - action type`)

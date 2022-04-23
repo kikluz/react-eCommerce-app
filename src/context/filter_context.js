@@ -32,7 +32,8 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: LOAD_PRODUCTS, payload: products })
   }, [products])
   return (
-    <FilterContext.Provider value='filter context'>
+    // get the values from the state and pass it in the value 
+    <FilterContext.Provider value={{ ...state }}>
       {children}
     </FilterContext.Provider>
   )
