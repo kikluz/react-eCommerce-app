@@ -12,11 +12,25 @@ import {
 } from '../actions'
 import { useProductsContext } from './products_context'
 
-const initialState = {}
+const initialState = {
+  // detup two props array that alway changing 
+  filtered_products: [],
+  all_products: []
+}
 
 const FilterContext = React.createContext()
-
+// get the products trough the FilterProvider component 
 export const FilterProvider = ({ children }) => {
+  // ? get the products (Remember can not pass in the state directly  we do it in the use effect)
+  // ? when component amount dispatch an action which is "LOAD_PRODUCTS"
+  const { products } = useProductsContext();
+  const [state, dispatch] = useReducer(reducer, initialState)
+
+  // in the depencendy array we invoke the products and invoke the dispath with type LOAD_PRODUCTS
+  // and payloads as products (now can handle in the reducer folder filter_reducer) 
+  useEffect(() => {
+    dispatch({ type: LOAD_PRODUCTS, payload: products })
+  }, [products])
   return (
     <FilterContext.Provider value='filter context'>
       {children}
