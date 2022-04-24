@@ -15,7 +15,8 @@ import { useProductsContext } from './products_context'
 const initialState = {
   // detup two props array that alway changing 
   filtered_products: [],
-  all_products: []
+  all_products: [],
+  grid_view: true
 }
 
 const FilterContext = React.createContext()

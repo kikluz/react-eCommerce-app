@@ -8,11 +8,25 @@ import ListView from './ListView'
 // ?there is not producst 
 const ProductList = () => {
   // invoke the filter_contect hook 
-  const { filtered_products: products } = useFilterContext();
+  // get the grid_view 
+  const { filtered_products: products, grid_view } = useFilterContext();
+  // ? if we have an empty array we display this 
+  if (products.length < 1) {
+    return (
+      <h5 style={{ textTransform: "none" }}>
+        Sorry, no products match your search...
+      </h5>
+    )
+  }
 
+  if (grid_view === false) {
+    // ListView and we pass in the products pros 
+    // equal to the product that we get from the product filterContext
+    return <ListView products={products} />
+  }
   return (
     <>
-      <GridView products={products} />
+      <GridView products={products} >product list</GridView>
     </>
   )
 }
