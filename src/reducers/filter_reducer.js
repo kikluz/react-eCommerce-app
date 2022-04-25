@@ -11,11 +11,21 @@ import {
 // we toggle
 const filter_reducer = (state, action) => {
   if (action.type === LOAD_PRODUCTS) {
+    // get the max price for filter 
+    let maxPrice = action.payload.map((p) => p.price)
+    maxPrice = Math.max(...maxPrice)
+    // console.log(maxPrice)
     // if this is the case changes the state values
     //  set products that are comming from the payload equal to both of them 
     // spread and all_products equal to payload and filter_products too
     return (
-      { ...state, all_products: [...action.payload], filtered_products: [...action.payload] }
+      {
+        ...state,
+        all_products: [...action.payload],
+        filtered_products: [...action.payload],
+        // copy old values and cange the value of max_price 
+        filters: { ...state.filters, max_price: maxPrice, price: maxPrice }
+      }
     )
   }
   // we toggle the  SET_LISTVIEW, SET_GRIDVIEW
@@ -51,6 +61,7 @@ const filter_reducer = (state, action) => {
       temProduts = temProduts.sort((a, b) => {
         // a is place before b 
         if (a.price < b.price) {
+          // return negative 1 
           return -1
         }
         // if a price is bigger retirn plus 1 

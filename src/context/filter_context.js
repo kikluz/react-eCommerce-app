@@ -18,7 +18,17 @@ const initialState = {
   all_products: [],
   grid_view: true,
   // fos contril input 2 things  1 state value 2 function that we run everytime that we cahge in the input
-  sort: 'price-lowest'
+  sort: 'price-lowest',
+  filters: {
+    text: '',
+    company: 'all',
+    category: 'all',
+    color: 'all',
+    min_price: 0,
+    max_price: 0,
+    price: 0,
+    shipping: false,
+  }
 }
 
 const FilterContext = React.createContext()
