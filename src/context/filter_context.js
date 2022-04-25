@@ -17,6 +17,8 @@ const initialState = {
   filtered_products: [],
   all_products: [],
   grid_view: true,
+  // fos contril input 2 things  1 state value 2 function that we run everytime that we cahge in the input
+  sort: 'price-lowest'
 }
 
 const FilterContext = React.createContext()
@@ -33,18 +35,36 @@ export const FilterProvider = ({ children }) => {
     dispatch({ type: LOAD_PRODUCTS, payload: products })
   }, [products])
 
+  // this is useEffect will run when we change the state value on the sort by 
+  // dependandy array run products and also state of sort changes  
+  useEffect(() => {
+    // invoke dispath action with type SORT_PRODUCTS
+    dispatch({ type: SORT_PRODUCTS })
+  }, [products, state.sort])
+
   const setGridView = () => {
     dispatch({ type: SET_GRIDVIEW })
   }
   const setListView = () => {
     dispatch({ type: SET_LISTVIEW })
   }
+  // function that is looking for the event
+  const updateSort = (e) => {
+    // setup name so we update sort on our select event target point to the input
+    // for demonstration 
+    // const name = e.target.name
+    // verytime I do something with select  I will update state
+    const value = e.target.value
+    // we dispath an action and the type is UPDATE_SORT and the payload I will paas the value
+    dispatch({ type: UPDATE_SORT, payload: value })
+  }
   return (
     // get the values from the state and pass it in the value 
     <FilterContext.Provider value={{
       ...state,
       setGridView,
-      setListView
+      setListView,
+      updateSort
     }}
     >
       {children}
