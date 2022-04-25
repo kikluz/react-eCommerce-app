@@ -4,16 +4,20 @@ import { BsFillGridFill, BsList } from 'react-icons/bs'
 import styled from 'styled-components'
 import products_reducer from '../reducers/products_reducer'
 const Sort = () => {
-  const { filtered_products: products, grid_view } = useFilterContext()
+  const { filtered_products: products, grid_view, setGridView, setListView } = useFilterContext()
   return (
     < Wrapper>
       <div className="btn-container">
         {/* if grid_view is true add the active class if not add null  */}
-        <button className={`${grid_view ? 'active' : null}`} type='button'>
+        <button className={`${grid_view ? 'active' : null}`} type='button' onClick={setGridView}>
           <BsFillGridFill />
         </button>
         {/* if grid_view is false add active class if not add null  */}
-        <button type='button' className={`${!grid_view ? 'active' : null}`}>
+        <button
+          type='button'
+          className={`${!grid_view ? 'active' : null}`}
+          onClick={setListView}
+        >
           <BsList />
         </button>
       </div>

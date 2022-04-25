@@ -16,7 +16,7 @@ const initialState = {
   // detup two props array that alway changing 
   filtered_products: [],
   all_products: [],
-  grid_view: true
+  grid_view: true,
 }
 
 const FilterContext = React.createContext()
@@ -32,9 +32,21 @@ export const FilterProvider = ({ children }) => {
   useEffect(() => {
     dispatch({ type: LOAD_PRODUCTS, payload: products })
   }, [products])
+
+  const setGridView = () => {
+    dispatch({ type: SET_GRIDVIEW })
+  }
+  const setListView = () => {
+    dispatch({ type: SET_LISTVIEW })
+  }
   return (
     // get the values from the state and pass it in the value 
-    <FilterContext.Provider value={{ ...state }}>
+    <FilterContext.Provider value={{
+      ...state,
+      setGridView,
+      setListView
+    }}
+    >
       {children}
     </FilterContext.Provider>
   )
