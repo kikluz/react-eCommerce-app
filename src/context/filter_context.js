@@ -77,6 +77,11 @@ export const FilterProvider = ({ children }) => {
     if (name === 'category') {
       value = e.target.textContent
     }
+    // access the value of color 
+    if (name === 'color') {
+      // EventTarget get the buton Element and get dataset
+      value = e.target.dataset.color
+    }
     // console.log(name, value)
     // dispatch and action type equal UPDATE_FILTERS nad the payload is an object 
     // and pass the name nad the value 

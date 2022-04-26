@@ -58,6 +58,65 @@ const Filters = () => {
               })}
             </div>
           </div>
+
+          <div className="form-control">
+            <h5>company</h5>
+            {/* important to match the name to the state  */}
+            <select
+              name="company"
+              value={company}
+              onChange={updateFilters}
+              className='company'
+            >
+              {companies.map((companyItem, index) => {
+                return (
+                  <option key={index} value={companyItem}>{companyItem}</option>
+                )
+              })}
+            </select>
+          </div>
+
+          {/* setup colors form and we are passing the data with dataSet  */}
+          <div className="form-control">
+            <h5>colors</h5>
+            <div className="colors">
+              {
+                colors.map((colorItem, index) => {
+                  if (colorItem === 'all') {
+                    return (
+                      <button
+                        key={index}
+                        bame="color"
+                        onClick={updateFilters}
+                        data-color="all"
+                        className={`${color === 'all' ? 'all-btn active' : 'all-btn'}`}
+                      >
+                        all
+                      </button>
+                    )
+                  }
+                  return (
+
+                    <button
+                      key={index}
+                      name="color"
+                      // get the color with inlie css 
+                      style={{ background: colorItem }}
+                      // add a className if the button is active has to match value
+                      // also add the colorItem hex color to the data ? somehow passs from the button the 
+                      // filter context  
+                      className={`${color === colorItem ? 'color-btn active' : 'color-btn'}`}
+                      data-color={colorItem}
+                      onClick={updateFilters}
+                    >
+                      {/* if the state color matches current button then display FaCheck */}
+                      {color === colorItem ? <FaCheck /> : null}
+                    </button>
+                  )
+                })
+              }
+            </div>
+          </div>
         </form>
       </div>
     </Wrapper>
