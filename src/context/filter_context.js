@@ -82,6 +82,11 @@ export const FilterProvider = ({ children }) => {
       // EventTarget get the buton Element and get dataset
       value = e.target.dataset.color
     }
+    // we are getting string in price we do not want that 
+    if (name === 'price') {
+      // we just formatted it 
+      value = Number(value)
+    }
     // console.log(name, value)
     // dispatch and action type equal UPDATE_FILTERS nad the payload is an object 
     // and pass the name nad the value 
