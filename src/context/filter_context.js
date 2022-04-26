@@ -49,8 +49,9 @@ export const FilterProvider = ({ children }) => {
   // dependandy array run products and also state of sort changes  
   useEffect(() => {
     // invoke dispath action with type SORT_PRODUCTS
+    dispatch({ type: FILTER_PRODUCTS })
     dispatch({ type: SORT_PRODUCTS })
-  }, [products, state.sort])
+  }, [products, state.sort, state.filters])
 
   const setGridView = () => {
     dispatch({ type: SET_GRIDVIEW })
@@ -68,13 +69,29 @@ export const FilterProvider = ({ children }) => {
     // we dispath an action and the type is UPDATE_SORT and the payload I will paas the value
     dispatch({ type: UPDATE_SORT, payload: value })
   }
+  // we are calling this function everytime we change something 
+  const updateFilters = (e) => {
+    // with event object access the input thats is colling onChange
+    let name = e.target.name
+    let value = e.target.value
+    // console.log(name, value)
+    // dispatch and action type equal UPDATE_FILTERS nad the payload is an object 
+    // and pass the name nad the value 
+    dispatch({ type: UPDATE_FILTERS, payload: { name, value } })
+  }
+  // this function we will clear with dispatch action 
+  const clearFilters = () => {
+
+  }
   return (
     // get the values from the state and pass it in the value 
     <FilterContext.Provider value={{
       ...state,
       setGridView,
       setListView,
-      updateSort
+      updateSort,
+      updateFilters,
+      clearFilters
     }}
     >
       {children}
