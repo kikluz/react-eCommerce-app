@@ -11,6 +11,13 @@ const Filters = () => {
     clearFilters,
     all_products
   } = useFilterContext();
+  // get unitque categories
+  const categories = getUniqueValues(all_products, 'category');
+  const companies = getUniqueValues(all_products, 'company');
+  // this is array of colors 
+  const colors = getUniqueValues(all_products, 'colors');
+
+  // console.log(colors)
 
   return (
     <Wrapper>
@@ -26,6 +33,30 @@ const Filters = () => {
               value={text}
               onChange={updateFilters}
             />
+          </div>
+
+          {/* Categories  */}
+          <div className='form-control'>
+            <h5>category</h5>
+            <div>
+              {categories.map((categoryItem, index) => {
+                return (
+                  <button
+                    key={index}
+                    // run the updateFilters and pass the name has to match to category this is the value 
+                    // that will change from the filters component 
+                    onClick={updateFilters}
+                    name='category'
+                    type='button'
+                    // setup the active class name  if they match if state value category is coming fromthe state 
+                    // matches the indiviual category 
+                    className={`${category === categoryItem.toLowerCase() ? 'active' : null}`}
+                  >
+                    {categoryItem}
+                  </button>
+                )
+              })}
+            </div>
           </div>
         </form>
       </div>
@@ -45,7 +76,8 @@ const Wrapper = styled.section`
     background: var(--clr-grey-10);
     border-radius: var(--radius);
     border-color: transparent;
-    letter-spacing: var(--spacing);
+    /* if add spacing input get bigger  */
+    /* letter-spacing: var(--spacing); */
   }
   .search-input::placeholder {
     text-transform: capitalize;

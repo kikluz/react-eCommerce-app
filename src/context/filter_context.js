@@ -74,6 +74,9 @@ export const FilterProvider = ({ children }) => {
     // with event object access the input thats is colling onChange
     let name = e.target.name
     let value = e.target.value
+    if (name === 'category') {
+      value = e.target.textContent
+    }
     // console.log(name, value)
     // dispatch and action type equal UPDATE_FILTERS nad the payload is an object 
     // and pass the name nad the value 
