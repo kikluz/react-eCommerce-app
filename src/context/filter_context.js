@@ -87,6 +87,10 @@ export const FilterProvider = ({ children }) => {
       // we just formatted it 
       value = Number(value)
     }
+
+    if (name === 'shipping') {
+      value = e.target.checked
+    }
     // console.log(name, value)
     // dispatch and action type equal UPDATE_FILTERS nad the payload is an object 
     // and pass the name nad the value 
@@ -94,7 +98,7 @@ export const FilterProvider = ({ children }) => {
   }
   // this function we will clear with dispatch action 
   const clearFilters = () => {
-
+    dispatch({ type: CLEAR_FILTERS })
   }
   return (
     // get the values from the state and pass it in the value 

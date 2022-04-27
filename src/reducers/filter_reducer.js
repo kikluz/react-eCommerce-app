@@ -107,6 +107,25 @@ const filter_reducer = (state, action) => {
     )
   }
 
+  if (action.type === CLEAR_FILTERS) {
+    return (
+      {
+        ...state,
+        filters: {
+          // first get all the props
+          ...state.filters,
+          text: '',
+          company: 'all',
+          category: 'all',
+          color: 'all',
+          // setup the default value of max_price 
+          price: state.filters.max_price,
+          shipping: false,
+        }
+      }
+    )
+  }
+
   throw new Error(`No Matching "${action.type}" - action type`)
 }
 
