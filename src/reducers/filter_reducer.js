@@ -21,6 +21,7 @@ const filter_reducer = (state, action) => {
     return (
       {
         ...state,
+        // alway has to have the fresh copy of all products  all data
         all_products: [...action.payload],
         filtered_products: [...action.payload],
         // copy old values and cange the value of max_price 
@@ -53,7 +54,7 @@ const filter_reducer = (state, action) => {
     // fisrt get the sort value ,second get the  filter products
     const { sort, filtered_products } = state;
     // one by one we use filtered_products and changes the order and if the values matches 
-    // setup equal to wherever Im filtering 
+    // setup equal to wherever Im filtering (always start from the start)
     let temProduts = [...filtered_products];
     if (sort === 'price-lowest') {
       // what do I want in here? get temProduts and  use the sort methos to return
@@ -101,9 +102,57 @@ const filter_reducer = (state, action) => {
   }
 
   if (action.type === FILTER_PRODUCTS) {
-    console.log('filtering products')
+    const { all_products } = state
+    const { text, category, company, color, price, shipping } = state.filters
+    // we overwrite eveytime we have some kind of filter functionallity 
+    let tempProducts = [...all_products]
+    // start filtering the products 
+    if (text) {
+      // new value is wherever i get from this filters its going to be display in the product pages 
+      tempProducts = tempProducts.filter((product) => {
+        // return only the products that start we the text that I start  in the text input 
+        return (
+          product.name.toLowerCase().startsWith(text)
+        )
+      })
+    }
+    // category  is not equal to 'all' 
+    if (category !== 'all') {
+      // do filtering base on category, whant the product whos category values matches in the  state 
+      tempProducts = tempProducts.filter(
+        (product) => product.category === category
+      )
+    }
+
+    // Compoany 
+    if (company !== 'all') {
+      tempProducts = tempProducts.filter((companyItem) => companyItem.company === company)
+    }
+
+    // color filter products 
+    if (color !== 'all') {
+      tempProducts = tempProducts.filter((productColor) => {
+        return (
+          productColor.colors.find((c) => c === color)
+        )
+      })
+    }
+
+    // price filter 
+    // here if the price is less or equal to th eprice coming from the state 
+    // checking for the price on the props 
+    tempProducts = tempProducts.filter((product) => product.price <= price)
+    // shipping 
+    // here check for the value is comming from the state  its true
+    // I will run it against all my products 
+    if (shipping) {
+      // if the shipping is true return the products that ahs the shipping property equal to true  
+      tempProducts = tempProducts.filter((product) => product.shipping === true)
+    }
+    // console.log('filtering products')
     return (
-      { ...state }
+      // when return filtered_products is equal to tempProducts 
+      { ...state, filtered_products: tempProducts }
     )
   }
 
