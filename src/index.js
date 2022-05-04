@@ -12,7 +12,10 @@ ReactDOM.render(
     <ProductsProvider>
         {/* wrapped the FilterProvider inside ProductsProvider */}
         <FilterProvider>
+            {/* anywhere in the app we access to the cart provider  */}
+            <CartProvider>
             <App />
+            </CartProvider>
         </FilterProvider>
     </ProductsProvider>,
     document.getElementById('root')
