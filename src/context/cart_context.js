@@ -44,12 +44,14 @@ export const CartProvider = ({ children }) => {
   };
   // remove item
   const removeItem = (id) => {
+    // dispatch remove cart item and in the payload setup the id
     dispatch({ type: REMOVE_CART_ITEM, payload: id });
   };
-  // toggle amounnt
+  // toggle amounnt passing the id and the value(for increase and decrease)
   const toggleAmount = (id, value) => {
     // payload is an object to get the id and the value
     console.log(id, value);
+    // payload is and object and looking for item id and the value
     dispatch({ type: TOGGLE_CART_ITEM_AMOUNT, payload: { id, value } });
   };
   // clear item
@@ -58,6 +60,8 @@ export const CartProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    //  display inmultiple places
+    dispatch({ type: COUNT_CART_TOTALS });
     // everytime something chnages grab the value and
     // overwieting in the local storage  only can store strings
     localStorage.setItem("cart", JSON.stringify(state.cart));

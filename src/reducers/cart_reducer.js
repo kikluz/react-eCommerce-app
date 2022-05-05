@@ -54,11 +54,15 @@ const cart_reducer = (state, action) => {
     const tempCart = state.cart.filter((item) => item.id !== action.payload);
     return { ...state, cart: tempCart };
   }
+  // clear cart
   if (action.type === CLEAR_CART) {
     return { ...state, cart: [] };
   }
+  // toggle cart
   if (action.type === TOGGLE_CART_ITEM_AMOUNT) {
+    // get the id and the value from the action.payload
     const { id, value } = action.payload;
+    // get the state values cart amd map to return item
     const tempCart = state.cart.map((item) => {
       if (item.id === id) {
         if (value === "inc") {
@@ -77,10 +81,29 @@ const cart_reducer = (state, action) => {
           return { ...item, amount: newAmount };
         }
       } else {
+        // if not return item as it is
         return item;
       }
     });
     return { ...state, cart: tempCart };
+  }
+  if (action.type === COUNT_CART_TOTALS) {
+    // for every item what is the price and what is the amount of items we have in the cart
+    const { total_items, total_amount } = state.cart.reduce(
+      (total, cartItem) => {
+        const { amount, price } = cartItem;
+        // in each  iteration grag the amount and added to the totoal_items
+        total.total_items += amount;
+        // here how many item i have multiply by the product price
+        total.total_amount += price * amount;
+        return total;
+      },
+      {
+        total_items: 0,
+        total_amount: 0,
+      }
+    );
+    return { ...state, total_items, total_amount };
   }
   throw new Error(`No Matching "${action.type}" - action type`);
 };
