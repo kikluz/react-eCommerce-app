@@ -20,6 +20,8 @@
 
 .env file in the root
 FAST_REFRESH=FALSE
+
+
 ------------------------------------------------
 # MY NOTES
 ### Better-comments
