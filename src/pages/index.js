@@ -1,22 +1,23 @@
-
 // setup the import as default from the home
-import Home from './HomePage'
-import Products from './ProductsPage'
-import SingleProduct from './SingleProductPage'
-import About from './AboutPage'
-import Cart from './CartPage'
-import Error from './ErrorPage'
-import Checkout from './CheckoutPage'
-import PrivateRoute from './PrivateRoute'
+import Home from "./HomePage";
+import Products from "./ProductsPage";
+import SingleProduct from "./SingleProductPage";
+import About from "./AboutPage";
+import Cart from "./CartPage";
+import Error from "./ErrorPage";
+import Checkout from "./CheckoutPage";
+import PrivateRoute from "./PrivateRoute";
+import AuthWrapper from "./AuthWrapper";
 
-// exporting as the name  export 
+// exporting as the name  export
 export {
-    Home,
-    Products,
-    SingleProduct,
-    About,
-    Cart,
-    Error,
-    Checkout,
-    PrivateRoute
-}
+  Home,
+  Products,
+  SingleProduct,
+  About,
+  Cart,
+  Error,
+  Checkout,
+  PrivateRoute,
+  AuthWrapper,
+};

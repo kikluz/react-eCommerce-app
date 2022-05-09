@@ -1,41 +1,49 @@
-import React from 'react'
-import { useFilterContext } from '../context/filter_context'
-import { BsFillGridFill, BsList } from 'react-icons/bs'
-import styled from 'styled-components'
-import products_reducer from '../reducers/products_reducer'
+import React from "react";
+import { useFilterContext } from "../context/filter_context";
+import { BsFillGridFill, BsList } from "react-icons/bs";
+import styled from "styled-components";
+// import products_reducer from '../reducers/products_reducer'
 const Sort = () => {
-  const { filtered_products: products, grid_view, setGridView, setListView, sort, updateSort } = useFilterContext()
+  const {
+    filtered_products: products,
+    grid_view,
+    setGridView,
+    setListView,
+    sort,
+    updateSort,
+  } = useFilterContext();
   return (
-    < Wrapper>
+    <Wrapper>
       <div className="btn-container">
         {/* if grid_view is true add the active class if not add null  */}
-        <button className={`${grid_view ? 'active' : null}`} type='button' onClick={setGridView}>
+        <button
+          className={`${grid_view ? "active" : null}`}
+          type="button"
+          onClick={setGridView}
+        >
           <BsFillGridFill />
         </button>
         {/* if grid_view is false add active class if not add null  */}
         <button
-          type='button'
-          className={`${!grid_view ? 'active' : null}`}
+          type="button"
+          className={`${!grid_view ? "active" : null}`}
           onClick={setListView}
         >
           <BsList />
         </button>
       </div>
-      <p>
-        {products.length} products found
-      </p>
+      <p>{products.length} products found</p>
       <hr />
-      <form >
+      <form>
         <label htmlFor="sort">sort by</label>
         <select
           name="sort"
           id="sort"
-          className='sort-input'
-          // here is the value coming from the state 
+          className="sort-input"
+          // here is the value coming from the state
           value={sort}
           onChange={updateSort}
         >
-
           <option value="price-lowest">price (lowest)</option>
           <option value="price-highest">price (highest)</option>
           <option value="name-a">name (a-z)</option>
@@ -43,8 +51,8 @@ const Sort = () => {
         </select>
       </form>
     </Wrapper>
-  )
-}
+  );
+};
 
 const Wrapper = styled.section`
   display: grid;
@@ -107,6 +115,6 @@ const Wrapper = styled.section`
     font-size: 1rem;
     text-transform: capitalize;
   }
-`
+`;
 
-export default Sort
+export default Sort;

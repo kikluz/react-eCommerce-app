@@ -36,3 +36,20 @@ With this extension, you will be able to categorise your annotations into:
 -Highlights
 -Commented out code can also be styled to make it clear the code shouldn't be there
 -Any other comment styles you'd like can be specified in the settings
+------------------------------------------------
+
+# .env vars
+REACT_APP_AUTH_DOMAIN=
+REACT_APP_CLIENT_ID=
+REACT_APP_STRIPE_PUBLIC_KEY=
+REACT_APP_STRIPE_SECRET_KEY=
+# Extra Setup
+npm install dotenv@8.2.0 stripe@8.130.0 @stripe/react-stripe-js@1.1.2 @stripe/stripe-js@1.11.0 netlify@6.0.12
+npm install netlify-cli -D
+
+## install netlify install globally
+### sudo npm i -g netlify-cli
+### run the commend [netlify dev]
+
+# stipe link and how to code this area
+https://github.com/john-smilga/react-course-comfy-sloth-store/blob/main/src/components/StripeCheckout.js

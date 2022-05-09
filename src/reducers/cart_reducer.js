@@ -80,10 +80,9 @@ const cart_reducer = (state, action) => {
           }
           return { ...item, amount: newAmount };
         }
-      } else {
-        // if not return item as it is
-        return item;
       }
+      // if not return item as it is
+      return item;
     });
     return { ...state, cart: tempCart };
   }

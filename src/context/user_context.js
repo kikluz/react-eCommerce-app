@@ -4,22 +4,15 @@ import { useAuth0 } from "@auth0/auth0-react";
 // in this case use use the useContext and wrapped te applicaion
 const UserContext = React.createContext();
 export const UserProvider = ({ children }) => {
-  const { isAuthenticated, loginWithRedirect, logout, user, isLoading } =
-    useAuth0();
+  const { loginWithRedirect, logout, user } = useAuth0();
 
   const [myUser, setMyUser] = useState(null);
   // setup the useEffect so we can see the values
   useEffect(() => {
-    if (isAuthenticated) {
-      // if isAuthenticated true setMyUser to wherever user I get from the Auth0
-      setMyUser(user);
-    }
-    // if the user logout dont want to keep my user as the object
-    else {
-      setMyUser(false);
-    }
-    // if isAuthenticated changing
-  }, [isAuthenticated]);
+    // set user that is comming from the auth 0
+    setMyUser(user);
+    // running everytime users changes
+  }, [user]);
   return (
     <UserContext.Provider value={{ loginWithRedirect, logout, myUser }}>
       {children}
