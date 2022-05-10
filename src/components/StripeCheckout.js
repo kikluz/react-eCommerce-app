@@ -7,19 +7,29 @@ import {
   Elements,
   useElements,
 } from "@stripe/react-stripe-js";
+// ask for post request
 import axios from "axios";
 import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
+// display the price
 import { formatPrice } from "../utils/helpers";
 import { useHistory } from "react-router-dom";
 
+const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+
+// from the stripe checkout we communicate with functions folder in the server
+// and from that function get back data and send it bacj to our function
+// we do not communicate directly(hightly insecure )
+
 const CheckoutForm = () => {
-  return <h4>hello from Stripe Checkout </h4>;
+  return <h4>checkout here</h4>;
 };
 
 const StripeCheckout = () => {
   return (
     <Wrapper>
+      {/*get the   Element component  ans pass the stripe prop and pass the promise */}
+      <Element stripe={promise} />
       <CheckoutForm />
     </Wrapper>
   );

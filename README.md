@@ -49,7 +49,7 @@ npm install netlify-cli -D
 
 ## install netlify install globally
 ### sudo npm i -g netlify-cli
-### run the commend [netlify dev]
+### run the commend [netlify dev] or [ntl dev]
 
 # stipe link and how to code this area
 https://github.com/john-smilga/react-course-comfy-sloth-store/blob/main/src/components/StripeCheckout.js
