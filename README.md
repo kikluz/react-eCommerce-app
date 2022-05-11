@@ -53,3 +53,6 @@ npm install netlify-cli -D
 
 # stipe link and how to code this area
 https://github.com/john-smilga/react-course-comfy-sloth-store/blob/main/src/components/StripeCheckout.js
+
+# React stripe payments
+https://stripe.com/docs/payments/quickstart
