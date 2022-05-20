@@ -56,3 +56,10 @@ https://github.com/john-smilga/react-course-comfy-sloth-store/blob/main/src/comp
 
 # React stripe payments
 https://stripe.com/docs/payments/quickstart
+
+# netlify function
+http://localhost:8888/.netlify/fucntions/hello
+http://localhost:8888/.netlify/functions/create-payment-intent
+
+# dotenv
+https://www.npmjs.com/package/dotenv

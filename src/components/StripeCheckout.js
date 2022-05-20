@@ -55,7 +55,20 @@ const CheckoutForm = () => {
   };
 
   const createPaymentIntent = async () => {
-    console.log("hello from stripe checkout");
+    // console.log("hello from stripe checkout");
+    try {
+      // we sending data to the server
+      const { data } = await axios.post(
+        "/.netlify/functions/create-payment-intent",
+        // passing the data as string
+        JSON.stringify({ cart, shipping_fee, total_amount })
+      );
+      // console.log(data.clientSecret);
+      setClientSecret(data.clientSecret);
+    } catch (error) {
+      // remove this when push to production
+      // console.log(error.response);
+    }
   };
 
   useEffect(() => {
@@ -63,13 +76,33 @@ const CheckoutForm = () => {
     // eslint-disable-next-line
   }, []);
 
-  const handleChange = async (event) => {};
-  const handleSubmit = async (ev) => {};
+  const handleChange = async (event) => {
+    setDisabled(event.empty);
+    setError(event.error ? event.error.message : "");
+  };
+  const handleSubmit = async (ev) => {
+    ev.preventDefault();
+  };
 
   return (
     <div>
       {/* this is a stripe setup  */}
-      <form className="payment-form" onSeeking={handleSubmit}>
+      {/* show value if succeeded is true show message  */}
+      {succeeded ? (
+        <article>
+          <h4>Thank you</h4>
+          <h4>Yuor payment was successfull!</h4>
+          <h4>Readirecting to home Page Shortly</h4>
+        </article>
+      ) : (
+        <article>
+          {/* check if myUser exist and if is true grab the name  */}
+          <h4>Hello, {myUser && myUser.name}</h4>
+          <p>your totoal is {formatPrice(shipping_fee + total_amount)}</p>
+          <p>Test Card Number: 4242424242424242</p>
+        </article>
+      )}
+      <form id="payment-form" onSeeking={handleSubmit}>
         <CardElement
           id="card-element"
           options={cardStyle}
@@ -79,7 +112,7 @@ const CheckoutForm = () => {
         <button disabled={processing || disabled || succeeded} id="submit">
           <span id="button-text">
             {/* check for processing */}
-            {processing ? <div className="spinner" id="spiner"></div> : "pay"}
+            {processing ? <div className="spinner" id="spinner"></div> : "pay"}
           </span>
         </button>
         {/* Show any error that happens when proccesing the payment */}
@@ -88,7 +121,7 @@ const CheckoutForm = () => {
             {error}
           </div>
         )}
-        {/* Show a success masage upon completion */}
+        {/* Show a success massage upon completion */}
         <p className={succeeded ? "result-message" : "result-message hidden"}>
           Payment succeeded, see the result in your
           <a href={`https://dashboard.stripe.com/test/payments`}>
@@ -104,7 +137,6 @@ const CheckoutForm = () => {
 const StripeCheckout = () => {
   return (
     <Wrapper>
-      {/*get the   Element component  ans pass the stripe prop and pass the promise */}
       <Elements stripe={promise}>
         <CheckoutForm />
       </Elements>
