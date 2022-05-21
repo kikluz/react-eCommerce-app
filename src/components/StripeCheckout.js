@@ -13,7 +13,7 @@ import { useCartContext } from "../context/cart_context";
 import { useUserContext } from "../context/user_context";
 // display the price
 import { formatPrice } from "../utils/helpers";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const promise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
@@ -25,7 +25,7 @@ const CheckoutForm = () => {
   // get the state value
   const { cart, total_amount, shipping_fee, clearCart } = useCartContext();
   const { myUser } = useUserContext();
-  const history = useHistory();
+  const navigate = useNavigate();
   // stripe state variables
   //  if the payment succeeded it
   const [succeeded, setSucceeded] = useState(false);
@@ -82,6 +82,25 @@ const CheckoutForm = () => {
   };
   const handleSubmit = async (ev) => {
     ev.preventDefault();
+    setProcessing(true);
+    // stripe methods prive for us
+    const payload = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    });
+    if (payload.error) {
+      setError(`Payment failed ${payload.error.message}`);
+      setProcessing(false);
+    } else {
+      setError(null);
+      setProcessing(false);
+      setSucceeded(true);
+      setTimeout(() => {
+        clearCart();
+        navigate("/");
+      }, 1000);
+    }
   };
 
   return (
@@ -102,7 +121,7 @@ const CheckoutForm = () => {
           <p>Test Card Number: 4242424242424242</p>
         </article>
       )}
-      <form id="payment-form" onSeeking={handleSubmit}>
+      <form id="payment-form" onSubmit={handleSubmit}>
         <CardElement
           id="card-element"
           options={cardStyle}
@@ -277,7 +296,7 @@ const Wrapper = styled.section`
       transform: rotate(360deg);
     }
   }
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 800px) {
     form {
       width: 80vw;
     }
